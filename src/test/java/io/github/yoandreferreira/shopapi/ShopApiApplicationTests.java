@@ -1,4 +1,4 @@
-package io.github.yoandreferreira.shopapi.shopapi;
+package io.github.yoandreferreira.shopapi;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

@@ -4,6 +4,7 @@ import io.github.yoandreferreira.shopapi.dto.ShopDTO;
 import io.github.yoandreferreira.shopapi.model.Shop;
 import io.github.yoandreferreira.shopapi.model.ShopItem;
 import io.github.yoandreferreira.shopapi.repository.ShopRepository;
+import io.github.yoandreferreira.shopapi.service.KafkaClient;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -18,6 +19,7 @@ import java.util.stream.Collectors;
 public class ShopController {
 
     private final ShopRepository shopRepository;
+    private final KafkaClient kafkaClient;
 
     @GetMapping
     public List<ShopDTO> getShop() {
@@ -34,7 +36,9 @@ public class ShopController {
         for(ShopItem shopItem : shop.getItems()) {
             shopItem.setShop(shop);
         }
-        return ShopDTO.convert(shopRepository.save(shop));
+        shopDTO = ShopDTO.convert(shopRepository.save(shop));
+        kafkaClient.sendMessage(shopDTO);
+        return shopDTO;
     }
 
 }

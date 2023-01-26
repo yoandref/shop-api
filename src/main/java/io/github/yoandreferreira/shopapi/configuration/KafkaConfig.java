@@ -38,6 +38,7 @@ public class KafkaConfig {
 
     public ConsumerFactory<String, ShopDTO> consumerFactory() {
         JsonDeserializer<ShopDTO> deserializer = new JsonDeserializer<>(ShopDTO.class);
+        deserializer.ignoreTypeHeaders();
         Map<String, Object> props = new HashMap<>();
         props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, bootstrapAddress);
         return new DefaultKafkaConsumerFactory<>(props, new StringDeserializer(), deserializer);

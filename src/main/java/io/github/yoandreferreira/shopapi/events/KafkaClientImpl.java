@@ -15,6 +15,6 @@ public class KafkaClientImpl implements KafkaClient {
 
     @Override
     public void sendMessage(ShopDTO msg) {
-        this.kafkaTemplate.send(SHOP_TOPIC_NAME, msg);
+        this.kafkaTemplate.send(SHOP_TOPIC_NAME, msg.getBuyerIdentifier(), msg);
     }
 }

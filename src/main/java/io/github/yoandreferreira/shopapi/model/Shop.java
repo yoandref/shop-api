@@ -19,6 +19,8 @@ public class Shop {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String identifier;
+    @Column(name = "buyer_identifier")
+    private String buyerIdentifier;
     private String status;
     @Column(name = "date_shop")
     private LocalDate dateShop;
@@ -28,6 +30,7 @@ public class Shop {
     public static Shop convert(ShopDTO shopDTO) {
         Shop shop = new Shop();
         shop.setIdentifier(shopDTO.getIdentifier());
+        shop.setBuyerIdentifier(shopDTO.getBuyerIdentifier());
         shop.setStatus(shopDTO.getStatus());
         shop.setDateShop(shopDTO.getDateShop());
         shop.setItems(shopDTO.getItems().stream().map(ShopItem::convert).collect(Collectors.toList()));
